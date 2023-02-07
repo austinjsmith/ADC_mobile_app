@@ -143,8 +143,6 @@ app.get('/materials/:reg/:jobName', async (req, res) => {
 
     connection.query(`SELECT * FROM taskcard_materials WHERE job_name = '${req.params.jobName}' AND registration = '${req.params.reg}'`, function (error, results, fields) {
         if (error) throw error;
-
-        console.log(results);
         
         res.send(results);
     })
@@ -188,8 +186,6 @@ app.post('/taskcard', (req, res) => {
 
     let body = req.body;
     let materials = body.materials;
-
-    console.log(body);
    
     connection.query(`INSERT INTO taskcards (registration, msn, aircraft_type, job_name, assigned_to, location, description, tools, phase, est_time, techs, labor, approver_id)
                     VALUES ('${body.registration}', '${body.msn}', '${body.aircraft_type}', '${body.jobName}', '${body.employeeAssigned}', '${body.jobLocation}', '${body.desc}', '${body.toolsNeeded}', '${body.phase}', '${body.estTime}', '${body.technicians}', '${body.labor}', '${body.approvalId}')`, function(error, results, fields) {
@@ -210,8 +206,6 @@ app.post('/update', (req, res) => {
 
     let body = req.body;
     let materials = body.materials
-
-    console.log(materials);
    
     connection.query(`UPDATE taskcards SET registration = '${body.reg}', assigned_to = '${body.employeeAssigned}', location = '${body.jobLocation}', description = '${body.desc}', tools = '${body.toolsNeeded}', phase = '${body.phase}', est_time = ${body.estTime}, techs = ${body.technicians}, labor = ${body.labor} WHERE registration = '${body.reg}' AND job_name = '${body.jobName}'`, function(error, results, fields) {
         if (error) throw error;
@@ -226,7 +220,7 @@ app.post('/update', (req, res) => {
     }
 })
 // set task as completed
-app.post('/setCompleted/:jobName/:name/:watchTime/:remarks?/:tools?', async (req, res) => {
+app.post('/setCompleted/:jobName/:name/:watchTime/:registration/:remarks?/:tools?', async (req, res) => {
 
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1; // off by one so I made up for it. Not sure why it's off
@@ -234,17 +228,17 @@ app.post('/setCompleted/:jobName/:name/:watchTime/:remarks?/:tools?', async (req
 
     var fullDate = `${year}-${month}-${date}`;
 
-    connection.query(`UPDATE taskcards SET completion_date = '${fullDate}', time = ${req.params.watchTime}, remarks = '${req.params.remarks}', tools = '${req.params.tools}' WHERE job_name = '${req.params.jobName}'`, function(error, results, fields) {
+    connection.query(`UPDATE taskcards SET completion_date = '${fullDate}', time = ${req.params.watchTime}, remarks = '${req.params.remarks}', tools = '${req.params.tools}' WHERE job_name = '${req.params.jobName}' AND registration = '${req.params.registration}'`, function(error, results, fields) {
         if (error) throw error;
 
         res.send(results);
     });
 })
 // add new part
-app.post('/newPart/:partNum/:modelValue?/:reg/:description/:jobName/:expDate?/:ipc?/:ata?/:cage?', async (req, res) => {
+app.post('/newPart/:partNum/:reg/:description/:jobName/:modelValue?/:expDate?/:ipc?/:ata?/:cage?', async (req, res) => {
     var params = req.params;
 
-    connection.query(`INSERT INTO parts (part_number, model_value, registration, description, ipc, expiration_date, ata, cage, phase) VALUES ('${params.partNum}', '${params.modelValue}', '${params.reg}', '${params.description}', '${params.ipc}', '${params.expDate}', '${params.ata}', '${params.cage}', '${params.jobName}')`, function(error, results, fields) {
+    connection.query(`INSERT INTO parts (part_number, registration, description, model_value, ipc, expiration_date, ata, cage, phase) VALUES ('${params.partNum}', '${params.reg}', '${params.description}', '${params.modelValue}', '${params.ipc}', '${params.expDate}', '${params.ata}', '${params.cage}', '${params.jobName}')`, function(error, results, fields) {
         if (error) throw error;
 
         res.send(results);

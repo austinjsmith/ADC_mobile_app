@@ -2,7 +2,7 @@
   "expo": {
     "name": "ADC Taskcards",
     "slug": "taskcards_app",
-    "version": "1.0.1",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/Images/app_icon.png",
     "splash": {
@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "ADC-Taskcards",
-      "buildNumber": "1.0.2"
+      "buildNumber": "1.0.5"
     },
     "android": {
       "adaptiveIcon": {

@@ -40,7 +40,7 @@ function AddPartModal({jobName, currentPhase, currentReg}) {
 
   const onSubmit = () => {
     
-    postPart(`${global.route}/newPart/${partNum}/${modelValue}/${currentReg}/${description}/${currentPhase}/${expDate}/${ipc}/${ata}/${cage}`)
+    postPart(`${global.route}/newPart/${partNum}/${currentReg}/${description}/${currentPhase}/${modelValue}/${expDate}/${ipc}/${ata}/${cage}`)
       .catch(function(error) {
         console.error(error);
       })
@@ -68,14 +68,6 @@ function AddPartModal({jobName, currentPhase, currentReg}) {
                 style={styles.input}
           />
 
-          <Text style={styles.label}>Model Value</Text>
-          <TextInput placeholder='In dollars'
-                value={modelValue}
-                onChangeText={setModelValue}
-                autoCorrect={false}
-                style={styles.input}
-          />
-
           <Text style={styles.label}>Registration</Text>
 
           <Text style={styles.input}>{currentReg}</Text>
@@ -96,6 +88,14 @@ function AddPartModal({jobName, currentPhase, currentReg}) {
                 style={styles.input}
           />
 
+
+          <Text style={styles.label}>Model Value</Text>
+          <TextInput placeholder='In dollars (optional)'
+                value={modelValue}
+                onChangeText={setModelValue}
+                autoCorrect={false}
+                style={styles.input}
+          />
           <Text style={styles.label}>IPC</Text>
           <TextInput placeholder='IPC (optional)'
                 value={ipc}

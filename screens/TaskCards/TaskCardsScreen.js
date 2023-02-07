@@ -107,7 +107,6 @@ class TaskCardsScreen extends Component {
             .then(response => response.json())
             .then(values => {
                 const assigned_to = values[0].assigned_to;
-                // console.log(values);
 
                 if (global.user == assigned_to) {
                     this.setState({
@@ -181,12 +180,9 @@ class TaskCardsScreen extends Component {
         let data = [];
         let entry = [];
 
-        // console.log(job_name);
-
         fetch(`${global.route}/parts/${reg}/${job_name}`)
             .then(response => response.json())
             .then(values => {
-                // console.log('getting parts...');
                 for (let i = 0; i < values.length; ++i) {
 
                     entry = [values[i].description, values[i].part_number, 'TBD', values[i].id];
@@ -208,7 +204,6 @@ class TaskCardsScreen extends Component {
         fetch(`${global.route}/materials/${reg}/${jobName}`)
             .then(response => response.json())
             .then(values => {
-                console.log(values);
 
                 entry = [this.state.techCount, this.state.labor, values.title, values.quantity, values.amount];
 
@@ -280,6 +275,7 @@ class TaskCardsScreen extends Component {
 
             body: JSON.stringify(data)
         });
+
         return response.text();
     }
 
@@ -287,7 +283,7 @@ class TaskCardsScreen extends Component {
 
         let time = this.timeToFloat(stopwatchTime);
 
-        this.postCompleted(`${global.route}/setCompleted/${jobName}/${completedBy}/${time}/${this.state.remarks}/${this.state.toolTableData}`)
+        this.postCompleted(`${global.route}/setCompleted/${jobName}/${completedBy}/${time}/${this.state.reg}/${this.state.remarks}/${this.state.toolTableData}`)
             .catch(function(error) {
                 console.error(error);
                 alert('Error setting completion. Make sure the following are filled out: job name, and completed by.\n Contact Austin Smith (austin.smith@uaminc.com) if you continue having issues');
@@ -382,7 +378,6 @@ class TaskCardsScreen extends Component {
 
     listMaterials(props) {
         let materials = props.materials;
-        // console.log(materials);
 
         const listItems = materials.map((material) =>
             <View style={styles.borderEntry}>

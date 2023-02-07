@@ -112,7 +112,7 @@ function EditPartModal(currentReg) {
           />
 
           <Text style={styles.label}>Model Value: {currentPartNum}</Text>
-          <TextInput placeholder='In dollars'
+          <TextInput placeholder='In dollars (optional)'
                 value={modelValue}
                 onChangeText={setModelValue}
                 autoCorrect={false}

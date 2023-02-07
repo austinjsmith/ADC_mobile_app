@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Dimensions } from 'react-native';
 
 const dimensions = Dimensions.get('window');
@@ -49,7 +50,7 @@ const LoginScreen = ({ navigation }) => {
     global.isAdmin = 'false';
 
     return (
-        <View style={styles.content}>
+        <KeyboardAwareScrollView contentContainerStyle={styles.content}>
             <View>
                 <Image 
                     source={ require('../../assets/Images/loginLogo.png') } 
@@ -78,7 +79,7 @@ const LoginScreen = ({ navigation }) => {
                 </Text>
             </TouchableOpacity>
 
-        </View>
+        </KeyboardAwareScrollView>
     )
 }
 
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         backgroundColor: '#ffffff'
     },
     logo: {
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
         width: 200,
         backgroundColor: '#1175bc',
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         borderRadius: 20
     }
 });

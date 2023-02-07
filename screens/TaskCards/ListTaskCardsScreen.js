@@ -75,8 +75,8 @@ class ListTaskCardsScreen extends Component {
                 />
 
                 {this.state.cards.map(value =>{
-                    // console.log(value)
-                    if (value.time) // if task was completed have the card be checked off
+
+                if (value.time) // if task was completed have the card be checked off
                     {
                         return <Card 
                                 iconName="check"
